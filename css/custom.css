@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400&family=Hanken+Grotesk:wght@500;600;700&display=swap");
+
+/* Apply Source Serif 4 to body text */
+body,
+.md-content {
+    font-family: "Source Serif 4", serif !important;
+}
+
+/* Apply Hanken Grotesk (semibold) to ALL headers and header-like elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.md-header--shadow,
+.md-header,
+.navbar-brand,
+.drawer-title,
+.toc-title,
+.article-title {
+    font-family: "Hanken Grotesk", sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* Justify body copy; justif.js (vendored in js/justif/) upgrades this to
+   print-quality justification with hyphenation. */
+.md-typeset p,
+.md-typeset li,
+.md-typeset dd,
+.md-typeset blockquote,
+.md-typeset figcaption {
+    text-align: justify;
+}

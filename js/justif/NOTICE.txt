@@ -1,0 +1,19 @@
+Vendored from https://github.com/lyallcooper/justif (v0.9.1), MIT licensed — see LICENSE.
+
+Files:
+- `auto.js` — the "drop-in" build; auto-justifies `p`, `li`, `dd`, `blockquote`,
+  `figcaption` elements on the page.
+- `chunk-ZW2EUTPS.js` — shared hyphenation-pattern-matching code, imported by
+  the files under `hyphenate/`.
+- `hyphenate/en-us.js` — American English hyphenation patterns by Donald E.
+  Knuth and Frank M. Liang, from Plain TeX's `hyphen.tex`. Only this locale is
+  vendored since the site defaults to `lang="en"`, which justif maps to
+  `en-us`. Add other `hyphenate/<locale>.js` files from the upstream `dist/`
+  if the site starts serving content in another language.
+
+Vendored (rather than loaded from a CDN) so no request is made to a
+third-party server on page load, avoiding both a cookie-banner discussion and
+leaking visitor IPs/referrers to that server.
+
+To upgrade: re-download the same three files (with the matching upstream
+`dist/` layout) from a newer release of the `justif` npm package.
