@@ -1,10 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400&family=Hanken+Grotesk:wght@500;600;700&display=swap");
-
-/* Apply Source Serif 4 to body text */
-body,
-.md-content {
-    font-family: "Source Serif 4", serif !important;
-}
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&display=swap");
 
 /* Apply Hanken Grotesk (semibold) to ALL headers and header-like elements */
 h1,
@@ -24,11 +18,15 @@ h6,
 }
 
 /* Justify body copy; justif.js (vendored in js/justif/) upgrades this to
-   print-quality justification with hyphenation. */
-.md-typeset p,
-.md-typeset li,
-.md-typeset dd,
-.md-typeset blockquote,
-.md-typeset figcaption {
-    text-align: justify;
+   print-quality justification with hyphenation. justif skips anything not
+   justified, so narrow (phone) screens get plain left-aligned text.
+   45em matches Material's own phone breakpoint. */
+@media (min-width: 45em) {
+    .md-typeset p,
+    .md-typeset li,
+    .md-typeset dd,
+    .md-typeset blockquote,
+    .md-typeset figcaption {
+        text-align: justify;
+    }
 }
