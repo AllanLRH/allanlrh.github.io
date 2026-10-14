@@ -12,12 +12,17 @@ class SupportsTransform(Protocol):
 
 
 class SerializeableImputer:
-    def __init__(
-        self, imputer: SupportsTransform, features: list[str], version: str
-    ) -> None:
+    """
+    Wrapper for a model object supporting the transform method.
+    Implements saving, loading and calling of the transform method.
+    """
+
+    # Bump when the saved format changes, and handle older versions in load()
+    VERSION = 1
+
+    def __init__(self, imputer: SupportsTransform, features: list[str]) -> None:
         self.imputer = imputer
         self.features = features
-        self.version = version
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
         XX = X[self.features]
@@ -27,7 +32,7 @@ class SerializeableImputer:
         serialized = dict(
             features=self.features,
             model_pickle=base64.b64encode(pickle.dumps(self.imputer)).decode(),
-            version=self.version,
+            version=self.VERSION,
         )
         path.write_text(json.dumps(serialized))
 
@@ -35,11 +40,18 @@ class SerializeableImputer:
     def load(cls, path: Path) -> Self:
         raw = json.loads(path.read_bytes())
         version = raw["version"]
+        if version > cls.VERSION:
+            raise ValueError(
+                f"Model saved with format version {version}, "
+                f"but this code only supports up to version {cls.VERSION}"
+            )
         imputer = pickle.loads(base64.b64decode(raw["model_pickle"]))
-        if version == "1":
+        # This special case handling not be in the first version of this class,
+        # but as the code evolves, we can handle backwards compatability issues
+        # like this.
+        if version == 1:
             imputer._fill_dtype = imputer._fit_dtype
         return cls(
             imputer=imputer,
             features=raw["features"],
-            version=version,
         )
