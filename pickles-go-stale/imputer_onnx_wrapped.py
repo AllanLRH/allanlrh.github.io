@@ -17,7 +17,9 @@ class SerializeableImputer:
     # Bump when the saved format changes, and handle older versions in load()
     VERSION = 1
 
-    def __init__(self, onnx_model: bytes, features: list[str], dtype: str = DTYPE) -> None:
+    def __init__(
+        self, onnx_model: bytes, features: list[str], dtype: str = DTYPE
+    ) -> None:
         self.onnx_model = onnx_model
         self.features = features
         self.dtype = dtype
@@ -45,7 +47,8 @@ class SerializeableImputer:
         # We handle the data conversion for the user of this class, making the
         # underlying model implementation transparrent to them.
         inputs = {
-            feature: X[[feature]].to_numpy(dtype=self.dtype) for feature in self.features
+            feature: X[[feature]].to_numpy(dtype=self.dtype)
+            for feature in self.features
         }
         (output,) = self.session.run(None, inputs)
         # ONNX Runtime may also return sparse tensors, lists and dicts
