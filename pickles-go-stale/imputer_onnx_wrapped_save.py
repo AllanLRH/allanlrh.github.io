@@ -7,6 +7,9 @@ from sklearn.impute import SimpleImputer
 
 X = pd.DataFrame({"a": [1.0, None, 3.0]}, dtype="float32")
 imputer = SimpleImputer().fit(X)
+print(imputer.transform(pd.DataFrame({"a": [None]})))
+# Output:
+# [[2.]]
 
 wrapped = SerializeableImputer.from_scikit_learn_model(imputer, X)
 wrapped.save("imputer_onnx_wrapped.json")

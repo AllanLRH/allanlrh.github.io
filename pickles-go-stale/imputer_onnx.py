@@ -19,4 +19,8 @@ X_test = pd.DataFrame({"a": [None]}, dtype="float32")
 inputs = {col: X_test[[col]].to_numpy() for col in X_test.columns}
 
 print(imputer_session.run(output_names=None, input_feed=inputs)[0])
+# Output:
+# [[2.]]
 print(imputer.transform(X_test))
+# Output:
+# [[2.]]

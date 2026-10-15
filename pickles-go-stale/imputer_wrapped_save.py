@@ -9,5 +9,8 @@ from sklearn.impute import SimpleImputer
 
 X = pd.DataFrame({"a": [1.0, None, 3.0]})
 imputer = SimpleImputer().fit(X)
+print(imputer.transform(pd.DataFrame({"a": [None]})))
+# Output:
+# [[2.]]
 
 SerializeableImputer(imputer, features=["a"]).save(Path("imputer_wrapped.json"))

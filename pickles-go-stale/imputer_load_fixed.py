@@ -12,3 +12,5 @@ with open("imputer.pkl", "rb") as f:
 imputer._fill_dtype = imputer._fit_dtype
 
 print(imputer.transform(pd.DataFrame({"a": [None]})))
+# Output:
+# [[2.]]

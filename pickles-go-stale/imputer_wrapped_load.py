@@ -8,3 +8,5 @@ from imputer_simple_wrapped import SerializeableImputer
 
 imputer = SerializeableImputer.load(Path("imputer_wrapped.json"))
 print(imputer.transform(pd.DataFrame({"a": [None]})))
+# Output:
+# [[2.]]
